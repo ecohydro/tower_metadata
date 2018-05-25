@@ -29,6 +29,7 @@ def make_mongo_uri(
         uri += '/' + database
     if replica_set is not None:
         uri += '?replicaSet=' + replica_set
+    uri += '?ssl=true'
     return uri
 
 
@@ -38,7 +39,7 @@ class Config:
     SECRET_KEY = os.environ.get('APP_SECRET')
     ROOT_DIR = os.environ.get('ROOT_DIR')
     SLACK_TOKEN = os.environ.get('SLACK_TOKEN')
-
+    
     @staticmethod
     def init_app(app):
         """Initialize the config."""
@@ -72,7 +73,7 @@ class DevelopmentConfig(Config):
             database=os.environ.get('MONGODB_DEV_DATABASE'),
             username=os.environ.get('MONGODB_DEV_USER'),
             password=os.environ.get('MONGODB_DEV_PASSWORD'),
-            replica_set=os.environ.get('MONGODB_DEV_REPLICASET')
+            #replica_set=os.environ.get('MONGODB_DEV_REPLICASET')
         )
     }
 
